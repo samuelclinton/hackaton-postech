@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${db.host:localhost}:5432/cloudinn
+    username: ${db.user}
+    password: ${db.password}
+  jpa:
+    open-in-view: false
