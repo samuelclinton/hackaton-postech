@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static com.cloudinn.backend.utils.UserHelper.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -43,6 +45,33 @@ class UserServiceImplTest {
         verify(userRepository, times(1)).save(newUser);
         verify(userRepository, times(1))
                 .existsByEmailOrCpfOrPassport(newUser.getEmail(), newUser.getCpf(), newUser.getPassport());
+    }
+
+    @Test
+    void update_shouldUpdateUserProperties() {
+        var newUserDto = generateNewUserDto();
+
+        var existingUser = new User(newUserDto);
+        existingUser.setId(USER_ID);
+
+        var updatedUser = new User(newUserDto);
+        updatedUser.setName("Updated Name");
+        updatedUser.setEmail("new_email@email.com");
+        updatedUser.setCountry("US");
+
+        when(userRepository.findById(USER_ID)).thenReturn(Optional.of(existingUser));
+        when(userRepository.save(existingUser)).thenReturn(existingUser);
+
+        var result = userService.update(USER_ID, updatedUser);
+
+        assertNotNull(result);
+        assertNotNull(result.getId());
+        assertEquals(USER_ID, result.getId());
+        assertEquals("BR", result.getCountry());
+        assertEquals("Updated Name", result.getName());
+        assertEquals("new_email@email.com", result.getEmail());
+        verify(userRepository, times(1)).findById(USER_ID);
+        verify(userRepository, times(1)).save(existingUser);
     }
 
     @Test
