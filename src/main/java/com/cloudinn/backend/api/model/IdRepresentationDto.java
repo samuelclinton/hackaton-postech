@@ -1,13 +1,13 @@
 package com.cloudinn.backend.api.model;
 
 import com.cloudinn.backend.domain.data.InputDto;
-import lombok.Builder;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-@Builder
-public class AmenityIdDto implements InputDto {
+public class IdRepresentationDto implements InputDto {
 
+    @NotNull
     private Long id;
 
 }
