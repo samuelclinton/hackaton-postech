@@ -19,6 +19,7 @@ public class Room implements DomainEntity {
     private Long id;
 
     private RoomType type;
+    private Boolean available = true;
     private Integer guestCapacity;
     private Integer bedAmount;
     private String bedType;

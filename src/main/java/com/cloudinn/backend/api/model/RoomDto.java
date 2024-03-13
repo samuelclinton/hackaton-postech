@@ -12,6 +12,7 @@ public class RoomDto implements OutputDto {
 
     private Long id;
     private RoomType type;
+    private Boolean available;
     private Integer guestCapacity;
     private Integer bedAmount;
     private String bedType;

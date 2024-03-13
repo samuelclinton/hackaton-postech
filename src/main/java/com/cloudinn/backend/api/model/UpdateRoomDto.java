@@ -14,6 +14,8 @@ public class UpdateRoomDto implements RoomInputDto {
     @Positive
     private Integer guestCapacity;
 
+    private Boolean available;
+
     @Positive
     private Integer bedAmount;
 
