@@ -1,9 +1,5 @@
-package com.cloudinn.backend.api.data;
+package com.cloudinn.backend.domain.data;
 
-import com.cloudinn.backend.domain.data.InputDto;
-import com.cloudinn.backend.domain.data.OutputDto;
-import com.cloudinn.backend.domain.data.DomainEntityMapper;
-import com.cloudinn.backend.domain.data.DomainEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.cloudinn.backend.api.controller;
 
-import com.cloudinn.backend.api.data.DomainEntityMapperImpl;
+import com.cloudinn.backend.domain.data.DomainEntityMapperImpl;
 import com.cloudinn.backend.api.model.AmenityDto;
 import com.cloudinn.backend.api.model.NewAmenityDto;
 import com.cloudinn.backend.api.model.location.LocationDto;

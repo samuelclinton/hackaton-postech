@@ -1,6 +1,6 @@
 package com.cloudinn.backend.domain.service;
 
-import com.cloudinn.backend.api.data.DomainEntityMapperImpl;
+import com.cloudinn.backend.domain.data.DomainEntityMapperImpl;
 import com.cloudinn.backend.api.model.user.UserInputDto;
 import com.cloudinn.backend.domain.data.OutputDto;
 import com.cloudinn.backend.domain.exception.UserIsMissingDocumentException;
