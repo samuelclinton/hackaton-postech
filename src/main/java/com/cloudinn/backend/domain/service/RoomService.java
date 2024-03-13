@@ -5,8 +5,8 @@ import com.cloudinn.backend.domain.model.Room;
 
 public interface RoomService {
 
-    Room create(Room room);
-    Room update(Long id, Room room);
+    Room create(Room newRoom);
+    Room update(Long id, Room updatedRoom);
     Room get(Long id);
     void delete(Long id);
     void addFurniture(Long roomId, Furniture furniture);

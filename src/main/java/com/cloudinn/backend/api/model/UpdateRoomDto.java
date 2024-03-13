@@ -1,23 +1,26 @@
 package com.cloudinn.backend.api.model;
 
-import com.cloudinn.backend.domain.data.OutputDto;
 import com.cloudinn.backend.domain.model.RoomType;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
-public class RoomDto implements OutputDto {
+public class UpdateRoomDto implements RoomInputDto {
 
-    private Long id;
     private RoomType type;
+
+    @Positive
     private Integer guestCapacity;
+
+    @Positive
     private Integer bedAmount;
+
     private String bedType;
     private String bathroom;
+
+    @Positive
     private BigDecimal price;
-    private List<NewFurnitureDto> furniture;
-    private BuildingDto building;
 
 }

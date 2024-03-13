@@ -1,5 +1,6 @@
 package com.cloudinn.backend.domain.model;
 
+import com.cloudinn.backend.domain.data.DomainEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Room {
+public class Room implements DomainEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,7 @@ public class Room {
     private String bathroom;
     private BigDecimal price;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private final List<Furniture> furniture = new ArrayList<>();
 
     @ManyToOne
@@ -32,5 +33,13 @@ public class Room {
 
     @ManyToOne
     private Location location;
+
+    public void addFurniture(Furniture furniture) {
+        this.furniture.add(furniture);
+    }
+
+    public void removeFurniture(Furniture furniture) {
+        this.furniture.remove(furniture);
+    }
 
 }
