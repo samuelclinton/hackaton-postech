@@ -1,4 +1,4 @@
-package com.cloudinn.backend.api.model;
+package com.cloudinn.backend.api.model.room;
 
 import com.cloudinn.backend.domain.data.InputDto;
 import jakarta.validation.constraints.NotBlank;

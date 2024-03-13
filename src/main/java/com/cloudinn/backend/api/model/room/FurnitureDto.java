@@ -1,4 +1,4 @@
-package com.cloudinn.backend.api.model;
+package com.cloudinn.backend.api.model.room;
 
 import com.cloudinn.backend.domain.data.OutputDto;
 import lombok.Data;

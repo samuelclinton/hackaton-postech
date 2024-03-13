@@ -1,5 +1,7 @@
-package com.cloudinn.backend.api.model;
+package com.cloudinn.backend.api.model.room;
 
+import com.cloudinn.backend.api.model.BuildingDto;
+import com.cloudinn.backend.api.model.location.LocationSummaryDto;
 import com.cloudinn.backend.domain.data.OutputDto;
 import com.cloudinn.backend.domain.model.RoomType;
 import lombok.Data;
@@ -12,7 +14,6 @@ public class RoomDto implements OutputDto {
 
     private Long id;
     private RoomType type;
-    private Boolean available;
     private Integer guestCapacity;
     private Integer bedAmount;
     private String bedType;
@@ -20,5 +21,6 @@ public class RoomDto implements OutputDto {
     private BigDecimal price;
     private List<NewFurnitureDto> furniture;
     private BuildingDto building;
+    private LocationSummaryDto location;
 
 }

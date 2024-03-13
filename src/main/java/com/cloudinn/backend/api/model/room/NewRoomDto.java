@@ -1,5 +1,6 @@
-package com.cloudinn.backend.api.model;
+package com.cloudinn.backend.api.model.room;
 
+import com.cloudinn.backend.api.model.IdRepresentationDto;
 import com.cloudinn.backend.domain.model.RoomType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

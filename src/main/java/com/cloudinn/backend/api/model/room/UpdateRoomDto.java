@@ -1,4 +1,4 @@
-package com.cloudinn.backend.api.model;
+package com.cloudinn.backend.api.model.room;
 
 import com.cloudinn.backend.domain.model.RoomType;
 import jakarta.validation.constraints.Positive;
