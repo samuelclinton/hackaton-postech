@@ -1,8 +1,9 @@
 package com.cloudinn.backend.domain.service;
 
-import com.cloudinn.backend.api.model.NewRoomDto;
-import com.cloudinn.backend.api.model.RoomDto;
+import com.cloudinn.backend.api.model.room.NewRoomDto;
+import com.cloudinn.backend.api.model.room.RoomDto;
 import com.cloudinn.backend.domain.data.DomainEntityMapperImpl;
+import com.cloudinn.backend.domain.exception.NotEnoughGuestCapacityException;
 import com.cloudinn.backend.domain.exception.RoomNotFoundException;
 import com.cloudinn.backend.domain.model.Furniture;
 import com.cloudinn.backend.domain.model.Room;
@@ -46,8 +47,22 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<Room> listAvailable(LocalDate checkin, LocalDate checkout) {
-        return roomRepository.findAvailableRooms(checkin, checkout);
+    public List<Room> listAvailable(LocalDate checkin, LocalDate checkout, Integer guests) {
+        var rooms = roomRepository.findAvailableRooms(checkin, checkout);
+        if (guestCapacitySupportsGuestAmount(rooms, guests)) {
+            return rooms;
+        } else {
+            throw new NotEnoughGuestCapacityException("Não há quartos disponíveis suficientes para essa" +
+                    " quantidade de hóspedes");
+        }
+    }
+
+    private boolean guestCapacitySupportsGuestAmount(List<Room> rooms, Integer guestAmount) {
+        Integer totalRoomCapacity = 0;
+        for (Room room : rooms) {
+            totalRoomCapacity += room.getGuestCapacity();
+        }
+        return totalRoomCapacity >= guestAmount;
     }
 
     @Override

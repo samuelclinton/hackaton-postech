@@ -1,6 +1,6 @@
 package com.cloudinn.backend.api.controller;
 
-import com.cloudinn.backend.api.model.*;
+import com.cloudinn.backend.api.model.room.*;
 import com.cloudinn.backend.domain.data.DomainEntityMapperImpl;
 import com.cloudinn.backend.domain.model.Furniture;
 import com.cloudinn.backend.domain.model.Room;
@@ -19,13 +19,16 @@ public class RoomControllerImpl implements RoomController {
 
     private final RoomService roomService;
     private final DomainEntityMapperImpl<RoomInputDto, RoomDto, Room> roomMapper;
+    private final DomainEntityMapperImpl<RoomInputDto, RoomSummaryDto, Room> roomSummaryMapper;
     private final DomainEntityMapperImpl<NewFurnitureDto, FurnitureDto, Furniture> furnitureMapper;
 
     public RoomControllerImpl(RoomService roomService,
                               DomainEntityMapperImpl<RoomInputDto, RoomDto, Room> roomMapper,
+                              DomainEntityMapperImpl<RoomInputDto, RoomSummaryDto, Room> roomSummaryMapper,
                               DomainEntityMapperImpl<NewFurnitureDto, FurnitureDto, Furniture> furnitureMapper) {
         this.roomService = roomService;
         this.roomMapper = roomMapper;
+        this.roomSummaryMapper = roomSummaryMapper;
         this.furnitureMapper = furnitureMapper;
     }
 
@@ -56,9 +59,11 @@ public class RoomControllerImpl implements RoomController {
     @Override
     @GetMapping("/available")
     @Transactional
-    public List<RoomDto> listAvailable(@RequestParam String checkin, String checkout) {
-        var availableRooms = roomService.listAvailable(LocalDate.parse(checkin), LocalDate.parse(checkout));
-        return roomMapper.mapEntitiesToOutputList(availableRooms, RoomDto.class);
+    public List<RoomSummaryDto> listAvailable(@RequestParam String checkin,
+                                              @RequestParam String checkout,
+                                              @RequestParam Integer guests) {
+        var availableRooms = roomService.listAvailable(LocalDate.parse(checkin), LocalDate.parse(checkout), guests);
+        return roomSummaryMapper.mapEntitiesToOutputList(availableRooms, RoomSummaryDto.class);
     }
 
     @Override
