@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @RestController
 @RequestMapping("/rooms")
 public class RoomControllerImpl implements RoomController {
@@ -48,6 +51,14 @@ public class RoomControllerImpl implements RoomController {
     @Transactional
     public RoomDto get(@PathVariable Long roomId) {
         return roomMapper.mapEntityToOutput(roomService.get(roomId), RoomDto.class);
+    }
+
+    @Override
+    @GetMapping("/available")
+    @Transactional
+    public List<RoomDto> listAvailable(@RequestParam String checkin, String checkout) {
+        var availableRooms = roomService.listAvailable(LocalDate.parse(checkin), LocalDate.parse(checkout));
+        return roomMapper.mapEntitiesToOutputList(availableRooms, RoomDto.class);
     }
 
     @Override

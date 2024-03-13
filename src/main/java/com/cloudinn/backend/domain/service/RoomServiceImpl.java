@@ -10,6 +10,9 @@ import com.cloudinn.backend.domain.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Service
 public class RoomServiceImpl implements RoomService {
 
@@ -40,6 +43,11 @@ public class RoomServiceImpl implements RoomService {
     public Room get(Long id) {
         return roomRepository.findById(id)
                 .orElseThrow(() -> new RoomNotFoundException("Nenhum quarto encontrado com o id " + id));
+    }
+
+    @Override
+    public List<Room> listAvailable(LocalDate checkin, LocalDate checkout) {
+        return roomRepository.findAvailableRooms(checkin, checkout);
     }
 
     @Override
