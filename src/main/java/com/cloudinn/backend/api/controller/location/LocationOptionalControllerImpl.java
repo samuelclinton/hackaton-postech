@@ -1,4 +1,4 @@
-package com.cloudinn.backend.api.controller;
+package com.cloudinn.backend.api.controller.location;
 
 import com.cloudinn.backend.domain.data.DomainEntityMapperImpl;
 import com.cloudinn.backend.api.model.NewOptionalDto;

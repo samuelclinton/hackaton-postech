@@ -1,4 +1,4 @@
-package com.cloudinn.backend.api.controller;
+package com.cloudinn.backend.api.controller.location;
 
 import com.cloudinn.backend.api.model.location.LocationDto;
 import com.cloudinn.backend.api.model.location.NewLocationDto;
