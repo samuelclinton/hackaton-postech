@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "tb_user")
 public class User implements DomainEntity {
 
     @Id
