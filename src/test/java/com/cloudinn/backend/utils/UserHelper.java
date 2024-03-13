@@ -1,13 +1,12 @@
 package com.cloudinn.backend.utils;
 
 import com.cloudinn.backend.api.model.AddressDto;
-import com.cloudinn.backend.api.model.NewUserDto;
+import com.cloudinn.backend.api.model.user.NewUserDto;
+import com.cloudinn.backend.api.model.user.UpdateUserDto;
 
 import java.time.LocalDate;
 
 public class UserHelper {
-
-    public static final String USER_ID = "4439ce91-36a5-4de6-8eb3-d7db5f7d7cf6";
 
     public static NewUserDto generateNewUserDto() {
         return NewUserDto.builder()
@@ -24,6 +23,24 @@ public class UserHelper {
                                 .city("City")
                                 .state("State")
                                 .zipcode("01234567")
+                                .build()
+                )
+                .build();
+    }
+
+    public static UpdateUserDto generateUpdateUserDto() {
+        return UpdateUserDto.builder()
+                .name("Updated Name")
+                .birthday(LocalDate.of(1999, 12, 1))
+                .phone("5511955556666")
+                .email("new_email@email.com")
+                .address(
+                        AddressDto.builder()
+                                .street("New Street name")
+                                .number("1001")
+                                .city("New City")
+                                .state("New State")
+                                .zipcode("07654321")
                                 .build()
                 )
                 .build();

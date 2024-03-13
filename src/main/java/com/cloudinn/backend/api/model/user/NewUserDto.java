@@ -1,5 +1,6 @@
-package com.cloudinn.backend.api.model;
+package com.cloudinn.backend.api.model.user;
 
+import com.cloudinn.backend.api.model.AddressDto;
 import com.cloudinn.backend.domain.model.validation.CountryCode;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-public class NewUserDto {
+public class NewUserDto implements UserInputDto {
 
     @NotBlank
     private String name;

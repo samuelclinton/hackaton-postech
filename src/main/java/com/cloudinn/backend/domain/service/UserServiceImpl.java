@@ -1,11 +1,13 @@
 package com.cloudinn.backend.domain.service;
 
+import com.cloudinn.backend.api.data.DomainEntityMapperImpl;
+import com.cloudinn.backend.api.model.user.UserInputDto;
+import com.cloudinn.backend.domain.data.OutputDto;
 import com.cloudinn.backend.domain.exception.UserIsMissingDocumentException;
 import com.cloudinn.backend.domain.exception.UserIsNotUniqueException;
 import com.cloudinn.backend.domain.exception.UserNotFoundException;
 import com.cloudinn.backend.domain.model.User;
 import com.cloudinn.backend.domain.repository.UserRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final DomainEntityMapperImpl<UserInputDto, OutputDto, User> userMapper;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository,
+                           DomainEntityMapperImpl<UserInputDto, OutputDto, User> userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -52,22 +57,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User get(String id) {
+    public User get(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Nenhum usuário encontrado com o id " + id));
     }
 
     @Override
     @Transactional
-    public User update(String id, User updatedUser) {
+    public User update(Long id, User updatedUser) {
         User existingUser = get(id);
-        BeanUtils.copyProperties(updatedUser, existingUser, "id", "cpf", "passport", "country");
+        userMapper.copyPropertiesBetweenEntities(updatedUser, existingUser);
         return userRepository.save(existingUser);
     }
 
     @Override
     @Transactional
-    public void delete(String id) {
+    public void delete(Long id) {
         userRepository.delete(get(id));
     }
 
