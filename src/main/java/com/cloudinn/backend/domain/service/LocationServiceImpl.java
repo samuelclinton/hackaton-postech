@@ -50,7 +50,7 @@ public class LocationServiceImpl implements LocationService {
     public void addAmenity(Long localityId, Amenity amenity) {
         Location existingLocation = get(localityId);
         existingLocation.addAmenity(amenity);
-        localityRepository.save(existingLocation);
+        localityRepository.saveAndFlush(existingLocation);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class LocationServiceImpl implements LocationService {
     public void removeAmenity(Long localityId, Amenity amenity) {
         Location existingLocation = get(localityId);
         existingLocation.removeAmenity(amenity);
-        localityRepository.save(existingLocation);
+        localityRepository.saveAndFlush(existingLocation);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class LocationServiceImpl implements LocationService {
     public void addOptional(Long localityId, Optional optional) {
         Location existingLocation = get(localityId);
         existingLocation.addOptional(optional);
-        localityRepository.save(existingLocation);
+        localityRepository.saveAndFlush(existingLocation);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class LocationServiceImpl implements LocationService {
     public void removeOptional(Long localityId, Optional optional) {
         Location existingLocation = get(localityId);
         existingLocation.removeOptional(optional);
-        localityRepository.save(existingLocation);
+        localityRepository.saveAndFlush(existingLocation);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class LocationServiceImpl implements LocationService {
     public void addBuilding(Long localityId, Building building) {
         Location existingLocation = get(localityId);
         existingLocation.addBuilding(building);
-        localityRepository.save(existingLocation);
+        localityRepository.saveAndFlush(existingLocation);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class LocationServiceImpl implements LocationService {
     public void removeBuilding(Long localityId, Building building) {
         Location existingLocation = get(localityId);
         existingLocation.removeBuilding(building);
-        localityRepository.save(existingLocation);
+        localityRepository.saveAndFlush(existingLocation);
     }
 
 }
