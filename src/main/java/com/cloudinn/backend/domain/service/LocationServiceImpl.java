@@ -1,11 +1,13 @@
 package com.cloudinn.backend.domain.service;
 
 import com.cloudinn.backend.domain.exception.LocalityNotFoundException;
+import com.cloudinn.backend.domain.exception.OptionalNotFoundException;
 import com.cloudinn.backend.domain.model.Amenity;
 import com.cloudinn.backend.domain.model.Building;
 import com.cloudinn.backend.domain.model.Location;
 import com.cloudinn.backend.domain.model.Optional;
 import com.cloudinn.backend.domain.repository.LocalityRepository;
+import com.cloudinn.backend.domain.repository.OptionalRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class LocationServiceImpl implements LocationService {
 
     private final LocalityRepository localityRepository;
+    private final OptionalRepository optionalRepository;
 
-    public LocationServiceImpl(LocalityRepository localityRepository) {
+    public LocationServiceImpl(LocalityRepository localityRepository, OptionalRepository optionalRepository) {
         this.localityRepository = localityRepository;
+        this.optionalRepository = optionalRepository;
     }
 
     @Override
@@ -37,6 +41,13 @@ public class LocationServiceImpl implements LocationService {
     public Location get(Long id) {
         return localityRepository.findById(id)
                 .orElseThrow(() -> new LocalityNotFoundException("Nenhuma localidade encontrada com o id " + id));
+    }
+
+    @Override
+    public Optional getOptional(Long id) {
+        return optionalRepository.findById(id)
+                .orElseThrow(() -> new OptionalNotFoundException("Nenhum serviço ou produto opcional encontrado" +
+                " com o id " + id));
     }
 
     @Override

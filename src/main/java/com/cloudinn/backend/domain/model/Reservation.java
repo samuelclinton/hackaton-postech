@@ -1,5 +1,6 @@
 package com.cloudinn.backend.domain.model;
 
+import com.cloudinn.backend.domain.data.DomainEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Reservation {
+public class Reservation implements DomainEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,7 @@ public class Reservation {
     private List<Room> rooms;
 
     @OneToMany
-    private List<Optional> optionals;
+    private List<AddedOptional> addedOptionals;
 
     @ManyToOne
     private User user;
@@ -37,11 +38,19 @@ public class Reservation {
         for (Room room : this.rooms) {
             totalRoomPrice = totalRoomPrice.add(room.getPrice());
         }
-        BigDecimal totalOptionalPrice = BigDecimal.ZERO;
-        for (Optional optional : this.optionals) {
-            totalOptionalPrice = totalOptionalPrice.add(optional.getPrice());
+        BigDecimal totalAddedOptionalPrice = BigDecimal.ZERO;
+        for (AddedOptional optional : this.addedOptionals) {
+            totalAddedOptionalPrice = totalAddedOptionalPrice.add(optional.getTotalPrice());
         }
-        this.subtotal = totalRoomPrice.add(totalOptionalPrice);
+        this.subtotal = totalRoomPrice.add(totalAddedOptionalPrice);
+    }
+
+    public boolean roomCapacityCanSupportGuests() {
+        Integer totalRoomCapacity = 0;
+        for (Room room : this.rooms) {
+            totalRoomCapacity += room.getGuestCapacity();
+        }
+        return totalRoomCapacity >= this.guests;
     }
 
 }

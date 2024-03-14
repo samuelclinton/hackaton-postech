@@ -10,6 +10,7 @@ public interface LocationService {
     Location create(Location location);
     Location update(Long id, Location updatedLocation);
     Location get(Long id);
+    Optional getOptional(Long id);
     void delete(Long id);
     void addAmenity(Long localityId, Amenity amenity);
     void removeAmenity(Long localityId, Amenity amenity);
