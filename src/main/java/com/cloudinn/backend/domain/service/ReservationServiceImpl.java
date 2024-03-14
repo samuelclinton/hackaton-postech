@@ -3,10 +3,7 @@ package com.cloudinn.backend.domain.service;
 import com.cloudinn.backend.domain.exception.AddedOptionalNotFoundException;
 import com.cloudinn.backend.domain.exception.NotEnoughGuestCapacityException;
 import com.cloudinn.backend.domain.exception.ReservationNotFoundException;
-import com.cloudinn.backend.domain.model.AddedOptional;
-import com.cloudinn.backend.domain.model.Reservation;
-import com.cloudinn.backend.domain.model.ReservationStatus;
-import com.cloudinn.backend.domain.model.Room;
+import com.cloudinn.backend.domain.model.*;
 import com.cloudinn.backend.domain.repository.AddedOptionalRepository;
 import com.cloudinn.backend.domain.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
@@ -21,14 +18,16 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
     private final RoomService roomService;
     private final LocationService locationService;
+    private final UserService userService;
     private final AddedOptionalRepository addedOptionalRepository;
 
     public ReservationServiceImpl(ReservationRepository reservationRepository,
                                   RoomService roomService, LocationService locationService,
-                                  AddedOptionalRepository addedOptionalRepository) {
+                                  UserService userService, AddedOptionalRepository addedOptionalRepository) {
         this.reservationRepository = reservationRepository;
         this.roomService = roomService;
         this.locationService = locationService;
+        this.userService = userService;
         this.addedOptionalRepository = addedOptionalRepository;
     }
 
@@ -65,6 +64,9 @@ public class ReservationServiceImpl implements ReservationService {
             addedOptionalEntities.add(addedOptionalRepository.save(addedOptional));
         });
         reservation.setAddedOptionals(addedOptionalEntities);
+
+        User user = userService.get(reservation.getUser().getId());
+        reservation.setUser(user);
     }
 
     @Override
@@ -77,9 +79,10 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @Transactional
-    public void cancel(Long id) {
+    public Reservation cancel(Long id) {
         Reservation reservation = get(id);
-        reservationRepository.delete(reservation);
+        reservation.setStatus(ReservationStatus.CANCELLED);
+        return reservationRepository.save(reservation);
     }
 
     @Override

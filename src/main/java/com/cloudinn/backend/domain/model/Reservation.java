@@ -4,9 +4,11 @@ import com.cloudinn.backend.domain.data.DomainEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -18,7 +20,12 @@ public class Reservation implements DomainEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private ReservationStatus status = ReservationStatus.CREATED;
+
+    @CreationTimestamp
+    private LocalDateTime creationDate;
+
     private Integer guests;
     private LocalDate checkin;
     private LocalDate checkout;

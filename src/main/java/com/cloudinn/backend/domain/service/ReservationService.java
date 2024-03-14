@@ -7,7 +7,7 @@ public interface ReservationService {
 
     Reservation create(Reservation reservation);
     Reservation confirm(Long id);
-    void cancel(Long id);
+    Reservation cancel(Long id);
     Reservation get(Long id);
 
     AddedOptional getAddedOptional(Long id);

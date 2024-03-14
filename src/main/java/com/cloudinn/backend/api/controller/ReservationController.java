@@ -8,6 +8,6 @@ public interface ReservationController {
     ReservationDto create(NewReservationDto newReservationDto);
     ReservationDto confirm(Long id);
     ReservationDto get(Long id);
-    void cancel(Long id);
+    ReservationDto cancel(Long id);
 
 }

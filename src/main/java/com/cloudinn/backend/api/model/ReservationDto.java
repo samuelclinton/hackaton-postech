@@ -8,6 +8,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -15,6 +16,7 @@ public class ReservationDto implements OutputDto {
 
     private Long id;
     private ReservationStatus status;
+    private LocalDateTime creationDate;
     private Integer guests;
     private LocalDate checkin;
     private LocalDate checkout;

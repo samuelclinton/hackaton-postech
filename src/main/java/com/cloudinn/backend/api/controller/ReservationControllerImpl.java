@@ -47,11 +47,10 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}/cancel")
     @Transactional
-    public void cancel(@PathVariable Long id) {
-        reservationService.cancel(id);
+    public ReservationDto cancel(@PathVariable Long id) {
+        return reservationMapper.mapEntityToOutput(reservationService.cancel(id), ReservationDto.class);
     }
 
 }

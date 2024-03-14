@@ -1,5 +1,5 @@
 package com.cloudinn.backend.domain.model;
 
 public enum ReservationStatus {
-    CREATED, CONFIRMED
+    CREATED, CONFIRMED, CANCELLED
 }
