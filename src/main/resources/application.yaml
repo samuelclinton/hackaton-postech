@@ -7,3 +7,17 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: create-drop
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${email.user:noreply.fiapark@gmail.com}
+    password: ${email.password:lfds sqgo isuo gjnr}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  freemarker:
+    settings:
+      locale: pt_BR

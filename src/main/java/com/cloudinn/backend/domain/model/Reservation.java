@@ -1,10 +1,12 @@
 package com.cloudinn.backend.domain.model;
 
 import com.cloudinn.backend.domain.data.DomainEntity;
+import com.cloudinn.backend.domain.event.ReservationConfirmedEvent;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Reservation implements DomainEntity {
+public class Reservation extends AbstractAggregateRoot<Reservation> implements DomainEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,16 +42,29 @@ public class Reservation implements DomainEntity {
     @ManyToOne
     private User user;
 
-    public void calculateSubtotal() {
+    public void confirm() {
+        setStatus(ReservationStatus.CONFIRMED);
+        registerEvent(new ReservationConfirmedEvent(this));
+    }
+
+    public BigDecimal calculateTotalRoomPrice() {
         BigDecimal totalRoomPrice = BigDecimal.ZERO;
         for (Room room : this.rooms) {
             totalRoomPrice = totalRoomPrice.add(room.getPrice());
         }
+        return totalRoomPrice;
+    }
+
+    public BigDecimal calculateTotalAddedOptionalsPrice() {
         BigDecimal totalAddedOptionalPrice = BigDecimal.ZERO;
         for (AddedOptional optional : this.addedOptionals) {
             totalAddedOptionalPrice = totalAddedOptionalPrice.add(optional.getTotalPrice());
         }
-        this.subtotal = totalRoomPrice.add(totalAddedOptionalPrice);
+        return totalAddedOptionalPrice;
+    }
+
+    public void calculateSubtotal() {
+        this.subtotal = calculateTotalRoomPrice().add(calculateTotalAddedOptionalsPrice());
     }
 
     public boolean roomCapacityCanSupportGuests() {

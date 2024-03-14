@@ -35,6 +35,10 @@ public class Room implements DomainEntity {
     @ManyToOne
     private Location location;
 
+    public String getFormattedRoomName() {
+        return String.format("Quarto %s - %sx %s - Até %s hóspedes", type.getFormattedType(), bedAmount, bedType, guestCapacity);
+    }
+
     public void addFurniture(Furniture furniture) {
         this.furniture.add(furniture);
     }

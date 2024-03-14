@@ -73,7 +73,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Transactional
     public Reservation confirm(Long id) {
         Reservation reservation = get(id);
-        reservation.setStatus(ReservationStatus.CONFIRMED);
+        reservation.confirm();
         return reservationRepository.save(reservation);
     }
 

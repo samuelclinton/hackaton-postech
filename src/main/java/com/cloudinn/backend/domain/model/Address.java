@@ -15,4 +15,8 @@ public class Address {
     private String state;
     private String zipcode;
 
+    public String getFormattedAddress() {
+        return String.format("%s, %s, %s - %s, %s", street, number, city, state, zipcode);
+    }
+
 }
