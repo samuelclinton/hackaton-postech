@@ -14,7 +14,7 @@ public class UserHelper {
                 .birthday(LocalDate.of(2000, 12, 1))
                 .phone("5511988887777")
                 .email("user@email.com")
-                .cpf("07594261046")
+                .cpf("")
                 .country("BR")
                 .address(
                         AddressDto.builder()
@@ -34,15 +34,6 @@ public class UserHelper {
                 .birthday(LocalDate.of(1999, 12, 1))
                 .phone("5511955556666")
                 .email("new_email@email.com")
-                .address(
-                        AddressDto.builder()
-                                .street("New Street name")
-                                .number("1001")
-                                .city("New City")
-                                .state("New State")
-                                .zipcode("07654321")
-                                .build()
-                )
                 .build();
     }
 

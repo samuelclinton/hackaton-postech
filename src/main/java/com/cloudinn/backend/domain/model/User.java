@@ -27,6 +27,5 @@ public class User implements DomainEntity {
     private String passport;
     private String country;
     private Address address;
-    private boolean enabled;
 
 }
