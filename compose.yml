@@ -1,0 +1,26 @@
+networks:
+  cloudinn-network:
+    driver: bridge
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: cloudinn
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    networks:
+      - cloudinn-network
+  api:
+    image: samuelclinton/cloudinn-api:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - cloudinn-network
+    environment:
+      WAIT_HOSTS: db:5432
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: root
+    command: sh -c "/wait && java -jar /app/cloudinn-api.jar"
