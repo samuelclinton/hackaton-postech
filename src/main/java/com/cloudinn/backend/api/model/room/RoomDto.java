@@ -18,6 +18,8 @@ public class RoomDto implements OutputDto {
 
     private RoomType type;
 
+    private Boolean available;
+
     @Schema(example = "2")
     private Integer guestCapacity;
 
@@ -33,7 +35,7 @@ public class RoomDto implements OutputDto {
     @Schema(example = "249.90")
     private BigDecimal price;
 
-    private List<NewFurnitureDto> furniture;
+    private List<FurnitureDto> furniture;
     private BuildingDto building;
     private LocationSummaryDto location;
 
