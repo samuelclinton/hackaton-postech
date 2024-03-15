@@ -1,0 +1,69 @@
+{
+	"id": "ae2ee50c-a280-4378-b617-ad8bf1e51648",
+	"name": "Hackaton",
+	"values": [
+		{
+			"key": "host",
+			"value": "http://localhost:8080",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "locationId",
+			"value": "null",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "amenityId",
+			"value": "null",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "optionalId",
+			"value": "null",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "buildingId",
+			"value": "null",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "roomId",
+			"value": "null",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "furnitureId",
+			"value": "null",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "reservationId",
+			"value": "null",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userId",
+			"value": "null",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "cpf",
+			"value": "null",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-03-15T06:51:25.226Z",
+	"_postman_exported_using": "Postman/10.24.3"
+}

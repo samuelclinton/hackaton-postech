@@ -1,0 +1,784 @@
+{
+	"info": {
+		"_postman_id": "28e2c27a-36a0-4121-ae6d-a186e9c367f1",
+		"name": "Hackaton",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27349627"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"userId\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function cpf() {\r",
+									"  const rnd = (n) => Math.round(Math.random() * n);\r",
+									"  const mod = (base, div) => Math.round(base - Math.floor(base / div) * div)\r",
+									"  const n = Array(9).fill('').map(() => rnd(9));\r",
+									"\r",
+									"  let d1 = n.reduce((total, number, index) => (total + (number * (10 - index))), 0)\r",
+									"  d1 = 11 - mod(d1, 11);\r",
+									"  if (d1 >= 10) d1 = 0;\r",
+									"  \r",
+									"  let d2 = (d1 * 2) + n.reduce((total, number, index) => (total + (number * (11 - index))), 0)\r",
+									"  d2 = 11 - mod(d2, 11);\r",
+									"  if (d2 >= 10) d2 = 0;\r",
+									"\r",
+									"  return `${n.join('')}${d1}${d2}`\r",
+									"}\r",
+									"\r",
+									"pm.environment.set('cpf', cpf());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"birthday\": \"1994-08-02\",\r\n    \"phone\": \"05511955556666\",\r\n    \"email\": \"samvkn@gmail.com\",\r\n    \"cpf\": \"{{cpf}}\",\r\n    \"passport\": \"BR123{{$randomInt}}\",\r\n    \"country\": \"BR\",\r\n    \"address\": {\r\n        \"street\": \"{{$randomStreetAddress}}\",\r\n        \"number\": \"{{$randomInt}}\",\r\n        \"city\": \"{{$randomCity}}\",\r\n        \"state\": \"Nova York\",\r\n        \"zipcode\": \"01234567\"\r\n    }\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"birthday\": \"1994-08-03\",\r\n    \"phone\": \"05511988887777\",\r\n    \"email\": \"email2@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Location",
+			"item": [
+				{
+					"name": "Create location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"locationId\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomCompanyName}}\",\r\n    \"address\": {\r\n        \"street\": \"Street\",\r\n        \"number\": \"10\",\r\n        \"city\": \"City\",\r\n        \"state\": \"State\",\r\n        \"zipcode\": \"01234567\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/locations",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update location",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Hotel2\",\r\n    \"address\": {\r\n        \"street\": \"Street2\",\r\n        \"number\": \"1022\",\r\n        \"city\": \"City2\",\r\n        \"state\": \"State2\",\r\n        \"zipcode\": \"07654321\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/locations/{{locationId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"locations",
+								"{{locationId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/locations/{{locationId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"locations",
+								"{{locationId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete location",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/locations/{{locationId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"locations",
+								"{{locationId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Building",
+			"item": [
+				{
+					"name": "Add building",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"buildingId\", jsonData.buildings.pop(-1).id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Prédio principal\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/locations/{{locationId}}/buildings",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"locations",
+								"{{locationId}}",
+								"buildings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove building",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/locations/{{locationId}}/buildings/{{buildingId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"locations",
+								"{{locationId}}",
+								"buildings",
+								"{{buildingId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Amenity",
+			"item": [
+				{
+					"name": "Add amenity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"amenityId\", jsonData.amenities.pop(-1).id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 2,\r\n    \"description\": \"Piscina olímpica\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/locations/{{locationId}}/amenities",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"locations",
+								"{{locationId}}",
+								"amenities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove amenity",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/locations/{{locationId}}/amenities/{{amenityId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"locations",
+								"{{locationId}}",
+								"amenities",
+								"{{amenityId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Optional",
+			"item": [
+				{
+					"name": "Add optional",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"optionalId\", jsonData.optionals.pop(-1).id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"SERVICE\",\r\n    \"description\": \"Manicure\",\r\n    \"price\": 39.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/locations/{{locationId}}/optionals",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"locations",
+								"{{locationId}}",
+								"optionals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove optional",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/locations/{{locationId}}/optionals/{{optionalId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"locations",
+								"{{locationId}}",
+								"optionals",
+								"{{optionalId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "Create room",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"roomId\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"DOUBLE_PREMIUM\",\r\n    \"guestCapacity\": 4,\r\n    \"bedAmount\": 2,\r\n    \"bedType\": \"Cama casal\",\r\n    \"bathroom\": \"Banheiro simples com chuveiro elétrico\",\r\n    \"price\": 450.00,\r\n    \"building\": {\r\n        \"id\": {{buildingId}}\r\n    },\r\n    \"location\": {\r\n        \"id\": {{locationId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/rooms",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update room",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"available\": false,\r\n    \"bathroom\": \"Banheiro completo com ducha\",\r\n    \"price\": 250.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/rooms/{{roomId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"rooms",
+								"{{roomId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get room",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/rooms/{{roomId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"rooms",
+								"{{roomId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List available rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/rooms/available?checkin=2024-03-15&checkout=2024-03-25&guests=2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"rooms",
+								"available"
+							],
+							"query": [
+								{
+									"key": "checkin",
+									"value": "2024-03-15"
+								},
+								{
+									"key": "checkout",
+									"value": "2024-03-25"
+								},
+								{
+									"key": "guests",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete room",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/rooms/{{roomId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"rooms",
+								"{{roomId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add furniture",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"furnitureId\", jsonData.furniture.pop(-1).id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 1,\r\n    \"description\": \"TV Smart de 50 polegadas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/rooms/{{roomId}}/furniture",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"rooms",
+								"{{roomId}}",
+								"furniture"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove furniture",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/rooms/{{roomId}}/furniture/{{furnitureId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"rooms",
+								"{{roomId}}",
+								"furniture",
+								"{{furnitureId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservation",
+			"item": [
+				{
+					"name": "Create reservation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"reservationId\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"guests\": 2,\r\n    \"checkin\": \"2024-03-13\",\r\n    \"checkout\": \"2024-03-15\",\r\n    \"rooms\": [\r\n        {\r\n            \"id\": {{roomId}}\r\n        }\r\n    ],\r\n    \"addedOptionals\": [\r\n        {\r\n            \"amount\": 2,\r\n            \"optional\": {\r\n                \"id\": {{optionalId}}\r\n            }\r\n        }\r\n    ],\r\n    \"user\": {\r\n        \"id\": {{userId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/reservations",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirma reservation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reservations/{{reservationId}}/confirm",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reservations",
+								"{{reservationId}}",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get reservation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reservations/{{reservationId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reservations",
+								"{{reservationId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel reservation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reservations/{{reservationId}}/cancel",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reservations",
+								"{{reservationId}}",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
