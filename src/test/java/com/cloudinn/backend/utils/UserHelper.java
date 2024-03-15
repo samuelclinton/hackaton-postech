@@ -14,7 +14,7 @@ public class UserHelper {
                 .birthday(LocalDate.of(2000, 12, 1))
                 .phone("5511988887777")
                 .email("user@email.com")
-                .cpf("")
+                .cpf("73902557060")
                 .country("BR")
                 .address(
                         AddressDto.builder()

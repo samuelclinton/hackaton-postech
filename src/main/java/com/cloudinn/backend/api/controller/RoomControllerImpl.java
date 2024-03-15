@@ -84,7 +84,6 @@ public class RoomControllerImpl implements RoomController {
 
     @Override
     @DeleteMapping("/{roomId}/furniture/{furnitureId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public RoomDto removeFurniture(@PathVariable Long roomId, @PathVariable Long furnitureId) {
         Furniture furnitureToBeRemoved = new Furniture();
